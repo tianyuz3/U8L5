@@ -1,3 +1,6 @@
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
 public class Encryptor {
     /** A two-dimensional array of single-character strings, instantiated in the constructor */
     private String[][] letterBlock;
@@ -69,6 +72,13 @@ public class Encryptor {
     public String encryptMessage(String message)
     {
         int times = message.length()/(numCols*numRows);
+        if(message.length()%(numCols*numRows)!=0){
+            times++;
+        }
+        for(int i = 0 ; i<message.length()%(numCols*numRows); i++){
+            message+="A";
+        }
+
         String result = "";
         int index = 0;
         for(int i = 0 ; i<times ; i++){
@@ -104,6 +114,31 @@ return result;
      */
     public String decryptMessage(String encryptedMessage)
     {
-       return "";
+       int times = encryptedMessage.length()/(numRows*numCols);
+       int index = 0;
+       String result = "";
+       String[][] e = new String[numRows][numCols];
+       for(int i = 0 ; i<times ; i++){
+           for(int c = 0 ; c<numCols ; c++){
+               for(int r = 0 ; r<numRows ; r++){
+                   e[r][c] = encryptedMessage.substring(index,index+1);
+                   index++;
+               }
+           }
+           for(int r = 0 ; r<numRows ; r++){
+               for(int c = 0 ; c<numCols ; c++){
+                   result +=e[r][c];
+               }
+           }
+       }
+       if(result.length()%(numRows*numCols)!=0){
+           int in = result.length()%numRows*numCols;
+           for(int i = 0 ; i<result.length()%(numRows*numCols);i++){
+               result.substring(0,result.length()-in-1);
+               in-=1;
+           }
+       }
+
+       return result;
     }
 }
