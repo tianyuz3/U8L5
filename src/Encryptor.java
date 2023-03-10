@@ -131,13 +131,11 @@ return result;
                }
            }
        }
-       if(result.length()%(numRows*numCols)!=0){
-           int in = result.length()%numRows*numCols;
-           for(int i = 0 ; i<result.length()%(numRows*numCols);i++){
-               result.substring(0,result.length()-in-1);
-               in-=1;
-           }
-       }
+      String last = result.substring(numCols*numRows*(times));
+       System.out.println("last" + last.length());
+       System.out.println("last: " + last);
+       if(last.indexOf("A")!=-1)
+      result = result.substring(0,last.indexOf("A"));
 
        return result;
     }
