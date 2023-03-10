@@ -131,12 +131,9 @@ return result;
                }
            }
        }
-      String last = result.substring(numCols*numRows*(times));
-       System.out.println("last" + last.length());
-       System.out.println("last: " + last);
-       if(last.indexOf("A")!=-1)
-      result = result.substring(0,last.indexOf("A"));
-
+       while(result.substring(result.length()-1).equals("A")){
+           result = result.substring(0,result.length()-1);
+       }
        return result;
     }
 }
